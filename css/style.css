@@ -183,7 +183,7 @@ body {
 
 header {
   width: 100%;
-  height: 80px;
+  height: 70px;
   padding-right: 60px;
   border-radius: 0 0 0 15px;
   overflow: hidden;
@@ -195,7 +195,7 @@ header {
   position: relative;
   text-align: right;
   /* font-style: italic; */
-  font-size: 18px;
+  font-size: 16px;
   text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
 }
 
@@ -315,6 +315,12 @@ nav {
   padding: 10px;
   background-color: var(--white-main);
   box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.8;
+  max-height: 3em;
 }
 
 .post-content {

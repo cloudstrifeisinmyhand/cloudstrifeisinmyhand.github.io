@@ -142,7 +142,35 @@
 </script>
                 </aside>
                 <main id="pjax-container">
-                    <section class="post-list">
+                    
+<div class="video-row">
+    <div class="video-item">
+        <iframe
+            src="//player.bilibili.com/player.html?isOutside=true&aid=3052597&bvid=BV1hs411275w&cid=4791647&p=1&autoplay=1&muted=1&controls=0&showinfo=0&disable_web=1&skin=0&danmaku=0" 
+            scrolling="no" 
+            border="0" 
+            frameborder="no" 
+            framespacing="0" 
+            allowfullscreen="true"
+            allow="autoplay; fullscreen"
+	    sandbox="allow-scripts allow-same-origin">
+        </iframe>
+    </div>
+    <div class="video-item">
+        <iframe
+            src="//player.bilibili.com/player.html?isOutside=true&aid=1852567916&bvid=BV13p42127tN&cid=1495677067&p=1&autoplay=1&muted=1&controls=0&showinfo=0&disable_web=1&skin=0&danmaku=0" 
+            scrolling="no" 
+            border="0" 
+            frameborder="no" 
+            framespacing="0" 
+            allowfullscreen="true"
+            allow="autoplay; fullscreen"
+	    sandbox="allow-scripts allow-same-origin">
+        </iframe>
+    </div>
+</div>
+
+<section class="post-list">
     
     <article class="card post-item">
         
@@ -167,6 +195,27 @@
 <nav class="page-nav">
     <span class="page-number current">1</span>
 </nav>
+
+<style>
+    .video-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+        justify-content: center;
+    }
+    .video-item {
+        flex: 1 1 300px;
+        max-width: 100%;
+    }
+    .video-item iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        border: none;
+        border-radius: 8px;
+    }
+</style>
                 </main>
                 <div class="sidebar-mask" id="sidebar-mask"></div>
             </div>
