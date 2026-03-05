@@ -300,26 +300,20 @@ nav {
 
 .post-title {
   position: relative;
-  font-size: 24px;
+  font-size: 20px;
+  margin-left: 10px;
   text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
-}
-
-.post-meta {
-  position: relative;
-  text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
-  padding: 5px 0;
 }
 
 .post-excerpt {
   position: relative;
   padding: 10px;
-  background-color: var(--white-main);
-  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.8;
+  text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
+  line-height: 1.9;
   max-height: 3em;
 }
 
@@ -426,7 +420,7 @@ nav {
 .profile {
   padding-top: 10px;
   padding-left: 100px;
-  height: 80px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -435,13 +429,13 @@ nav {
 
 .about {
   margin-top: 10px;
-  padding: 10px;
+  padding: 15px;
 }
 
 .profile-widget {
   position: relative;
   margin-top: -90px;
-  text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
+  text-shadow: 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main);
   text-align: center;
 }
 
