@@ -121,20 +121,30 @@
         </div>
     </div>
 
+<div class="playlist-container">
+    <ul class="playlist" id="playlist">
+        <!-- 列表项将由 JavaScript 动态生成 -->
+    </ul>
+    <div class="pagination">
+        <button class="page-btn prev" disabled>&lt;</button>
+        <button class="page-btn next">&gt;</button>
+    </div>
+</div>
+
     <audio id="audioPlayer"></audio>
 </div>
 
 <script>
     var musicConfig = {
         autoplay: false,
-        playlist: [{"title":"Introduction","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298661.mp3"},{"title":"Edge Flight","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298665.mp3"},{"title":"Hit","artist":"The Sugarcubes","cover":"/image/music/BJORK.jpg","url":"https://music.163.com/song/media/outer/url?id=3572127.mp3"},{"title":"……なければ君がくれたものはわからない","artist":"MORRIE","cover":"/image/music/MORRIE.jpg","url":"https://music.163.com/song/media/outer/url?id=3341947232.mp3"},{"title":"偽リノ城塞","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490597.mp3"}]
+        playlist: [{"title":"Introduction","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298661.mp3"},{"title":"Edge Flight","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298665.mp3"},{"title":"Hit","artist":"The Sugarcubes","cover":"/image/music/BJORK.jpg","url":"https://music.163.com/song/media/outer/url?id=3572127.mp3"},{"title":"……なければ君がくれたものはわからない","artist":"MORRIE","cover":"/image/music/MORRIE.jpg","url":"https://music.163.com/song/media/outer/url?id=3341947232.mp3"},{"title":"偽リノ城塞","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490597.mp3"},{"title":"穏ヤカナ眠リ","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490565.mp3"},{"title":"森ノ王国","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490583.mp3"}]
     };
 </script>
                 </aside>
                 <main id="pjax-container">
                     <div class="card post-full">
     <span class="post-title article-title">
-        
+        懒加载bug没修好，再点一下about图才会出来。。
     </span>
 
     <div class="post-meta">
@@ -143,9 +153,9 @@
     </div>
 
     <div class="post-content">
-        <p><img src="assets/chouchou.jpg" alt="chouchou"><br><img src="assets/cow.jpg" alt="cow"><br>
-<br><img src="assets/deadend.JPG" alt="deadend"><br>
-<br><img src="assets/selfie.jpg" alt="selfie"></p>
+        <p><br><img src="assets/chouchou.jpg" alt="chouchou"><img src="assets/cow.jpg" alt="cow"><br>
+<img src="assets/deadend.JPG" alt="deadend"><br>
+<img src="assets/selfie.jpg" alt="selfie"></p>
 
     </div>
 </div>

@@ -99,4 +99,104 @@ document.addEventListener('DOMContentLoaded', function() {
     if (musicConfig.autoplay) {
         playSong();
     }
+    
+    // ========== 播放列表功能 ==========
+(function() {
+    // 检查是否有歌曲数据
+    if (!playlist || playlist.length === 0) return;
+
+    const pageSize = 5;                 // 每页显示数量
+    let currentPage = 1;
+    const totalPages = Math.ceil(playlist.length / pageSize);
+
+    const playlistEl = document.getElementById('playlist');
+    const prevBtn = document.querySelector('.page-btn.prev');
+    const nextBtn = document.querySelector('.page-btn.next');
+
+    // 渲染当前页列表
+    function renderPlaylist() {
+        const start = (currentPage - 1) * pageSize;
+        const end = Math.min(start + pageSize, playlist.length);
+        const pageSongs = playlist.slice(start, end);
+
+        let html = '';
+        pageSongs.forEach((song, idx) => {
+            const songIndex = start + idx;  // 全局索引
+            html += `
+                <li class="playlist-item" data-index="${songIndex}">
+                    <span class="item-index">${songIndex + 1}</span>
+                    <span class="item-title">${song.title} - ${song.artist}</span>
+                </li>
+            `;
+        });
+        playlistEl.innerHTML = html;
+
+        // 更新分页信息
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+    }
+
+    // 点击列表项播放
+    playlistEl.addEventListener('click', (e) => {
+        const item = e.target.closest('.playlist-item');
+        if (!item) return;
+        const songIndex = parseInt(item.dataset.index, 10);
+        if (songIndex !== currentSongIndex) {
+            currentSongIndex = songIndex;
+            loadSong(playlist[currentSongIndex]);
+            playSong();   // 自动播放
+        } else {
+            // 点击当前正在播放的歌曲，可切换播放/暂停（可选）
+            if (isPlaying) {
+                pauseSong();
+            } else {
+                playSong();
+            }
+        }
+    });
+
+    // 翻页事件
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPlaylist();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderPlaylist();
+        }
+    });
+
+    // 初始渲染
+    renderPlaylist();
+
+    // 当通过上一首/下一首切换歌曲时，高亮当前项（可选）
+    // 可以在 loadSong 调用后添加一个高亮函数
+    const originalLoadSong = loadSong;
+    loadSong = function(song) {
+        originalLoadSong(song);
+        // 高亮当前歌曲对应的列表项
+        const items = document.querySelectorAll('.playlist-item');
+        items.forEach(item => {
+            item.classList.remove('active');
+            if (parseInt(item.dataset.index, 10) === currentSongIndex) {
+                item.classList.add('active');
+            }
+        });
+    };
+
+    // 为高亮添加样式（需在 CSS 中定义）
+    // .playlist-item.active {
+    //     background: var(--primary-color);
+    //     color: var(--white-main);
+    // }
+    // .playlist-item.active .item-index {
+    //     color: var(--white-main);
+    // }
+})();
 });
+
+
