@@ -308,19 +308,22 @@ nav {
 .post-excerpt {
   position: relative;
   padding: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+  margin-top: 10px;
+  font-size: smaller;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-shadow: 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main), 0 0 10px var(--white-main);
-  line-height: 1.9;
-  max-height: 3em;
+  line-height: 1.5;
+  max-height: 2.3em;
 }
 
 .post-content {
   position: relative;
   padding: 10px;
-  background-color: var(--white-main);
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
 }
 
@@ -359,6 +362,70 @@ nav {
   display: block;
   padding: 20px 0;
   font-size: 30px;
+}
+
+/* 网格容器：每行三个 */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 0px;
+  background-color: transparent;
+}
+
+.gallery-item .caption {
+  color: var(--black-main); /* 保持原有颜色 */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); /* 增加白色光晕提高可读性 */
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+/* 缩略图容器：强制 4:3 比例 */
+.thumbnail {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 填充容器，可能裁剪但不变形 */
+  display: block;
+}
+
+/* 图片下方名字 */
+.caption {
+  text-align: center;
+  padding: 10px 8px;
+  font-size: 1rem;
+  color: var(--black-main);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 0 var(--white-main); /* 与按钮文字阴影类似 */
+}
+
+/* 响应式：小于768px显示两列，小于480px显示一列 */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.gallery-link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* 使链接包裹整个卡片 */
+}
+
+.gallery-link:hover .gallery-item {
+  transform: scale(1.02); /* 保留原有的悬停效果 */
 }
 
 .avatar-widget {
@@ -436,6 +503,7 @@ nav {
   position: relative;
   margin-top: -90px;
   text-shadow: 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main);
+  font-size: smaller;
   text-align: center;
 }
 
@@ -710,7 +778,7 @@ nav {
 
 .archive-list {
   padding: 10px;
-  background-color: var(--white-main);
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
 }
 
@@ -974,4 +1042,16 @@ footer {
   .post-cover {
     width: 100%;
   }
+}
+.video-item img {
+  width: 100%; /* 图片宽度占满父容器 */
+  height: auto; /* 高度自动，保持原始比例 */
+  display: block; /* 去除图片下方多余间隙 */
+}
+
+.video-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2/1; /* 强制 16:9 比例 */
+  object-fit: cover; /* 裁剪多余部分，填充容器 */
 }

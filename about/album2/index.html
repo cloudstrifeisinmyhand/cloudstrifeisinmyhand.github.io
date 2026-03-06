@@ -32,7 +32,7 @@
     <nav class="button-bar">
         <ul class="nav-links">
             <li>
-                <a href="/" class="button link-home active">
+                <a href="/" class="button link-home ">
                     <span class="nav-text">
                         <img src="/image/icon/vista_messenger.jpg" alt="home" class="icon">
                         <span>Home</span>
@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a href="/about" class="button ">
+                <a href="/about" class="button active">
                     <span class="nav-text">
                         <img src="/image/icon/vista_photo_gallery.jpg" alt="about" class="icon">Gallery
                     </span>
@@ -142,61 +142,153 @@
 </script>
                 </aside>
                 <main id="pjax-container">
-                    
-<div class="main-content"> 
-<div class="video-row">
-    <div class="video-item">
-       <img src="https://i.postimg.cc/TPx3XsCG/copy_63BAAC8C_7ECF_419E_9DDD_C0FB07BB6675.gif"> 
-    </div>
-    <div class="video-item">
-      <img src="https://i.postimg.cc/CxgRFdKg/copy-0EA50108-ABB6-4FC8-8C54-44C63874F0FC.gif">   
-    </div>
-</div>
-
-<section class="post-list">
-    
-    <article class="card post-item">
-        
-        <div class="post-info">
-            <span class="post-title">
-                    时时刻刻
-            </span>
-            <div class="post-excerpt">
-                狗是焦虑的生物，这体现在心率。下面是一条狗的故事。狗是古老的本土血统而几乎不带有国外品种混血，背后的原因令人暖心。它来自狗肉大省，吃狗肉的人偏爱纯血的本土品种，因此这个在外地几乎绝迹的品种在该地得到保留。狗出生于2025年11月中。它全身毛发为黑色，舌头也不例外，被归为一个特殊亚种，用于商业价...
-            </div>
-            <a href="/2026/03/05/A%20story/" class="button rm-link">
-                <span class="read-more">Read More...</span>
-            </a>
+                    <div class="card post-full">
+<div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <button id="show-btn" class="button">reload</button>
+        <div class="post-meta" style="flex: 1; margin-left: 15px;">
+                
         </div>
-    </article>
-    
-</section>
+    </div>
 
-<nav class="page-nav">
-    <span class="page-number current">1</span>
-</nav>
+    <div class="post-content">
+        <!-- 相册浏览组件 -->
+        <div class="album-viewer">
+            <div class="photo-container">
+                <img id="album-photo" src="" alt="" class="album-photo">
+                <div id="photo-caption" class="photo-caption"></div>
+            </div>
+            <div class="nav-controls">
+                <button id="prev-btn" class="button">← Prev</button>
+                <span id="photo-counter"></span>
+                <button id="next-btn" class="button">Next →</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
-    .video-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 20px;
-        justify-content: center;
-    }
-    .video-item {
-        flex: 1 1 300px;
-        max-width: 100%;
-    }
-    .video-item iframe {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-        border: none;
-        border-radius: 8px;
-    }
+/* 相册浏览样式，可继承主题变量 */
+.album-viewer {
+    text-align: center;
+}
+.photo-container {
+    margin-bottom: 20px;
+}
+.album-photo {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.photo-caption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #666;
+}
+.nav-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.nav-controls .button {
+    min-width: 100px;
+}
+#photo-counter {
+    font-size: 1.1rem;
+}
 </style>
+
+<script>
+// 照片数据
+const photos = [{"url":"https://i.imgur.com/QAhA5Hd.jpg"},{"url":"https://i.imgur.com/Hbm2s1L.jpg"},{"url":"https://i.imgur.com/tv2bI9u.jpg"},{"url":"https://i.imgur.com/ONk7rZc.jpg"},{"url":"https://i.imgur.com/FEOmDyO.jpg"},{"url":"https://i.imgur.com/ZyxnHKK.jpg"},{"url":"https://i.imgur.com/IpSodJi.jpg"},{"url":"https://i.imgur.com/XOMOabG.jpg"},{"url":"https://i.imgur.com/0uTaNEE.jpg"},{"url":"https://i.imgur.com/cE35sjW.jpg"}];
+let currentIndex = 0;
+
+// 获取关键DOM元素
+const photoContainer = document.querySelector('.photo-container'); // 图片容器
+const captionEl = document.getElementById('photo-caption');
+const counterEl = document.getElementById('photo-counter');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+
+// 初始化显示
+function updatePhoto() {
+    if (!photos.length) {
+        if (photoContainer) photoContainer.innerHTML = '<p>No photos</p>';
+        captionEl.innerText = '';
+        counterEl.innerText = '0/0';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+    }
+
+    const photo = photos[currentIndex];
+    
+    // 清空容器并创建新的img元素
+    photoContainer.innerHTML = ''; 
+    const newImg = document.createElement('img');
+    newImg.id = 'album-photo';
+    newImg.className = 'album-photo';
+    newImg.alt = photo.caption || '';
+    
+    // 生成带时间戳的URL（强制刷新）
+    const separator = photo.url.includes('?') ? '&' : '?';
+    const uniqueUrl = photo.url + separator + '_t=' + Date.now();
+    newImg.src = uniqueUrl;
+    
+    // 图片加载成功/失败处理
+    newImg.onload = () => {
+        console.log('图片加载成功:', uniqueUrl);
+        captionEl.innerText = photo.caption || '';
+    };
+    newImg.onerror = () => {
+        console.error('图片加载失败:', uniqueUrl);
+        captionEl.innerText = '图片加载失败，请重试';
+        // 可以尝试回退到无时间戳的URL
+        // newImg.src = photo.url;
+    };
+    
+    // 将新图片添加到容器
+    photoContainer.appendChild(newImg);
+    
+    // 更新计数器和按钮状态
+    counterEl.innerText = `${currentIndex+1} / ${photos.length}`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === photos.length - 1;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    if (photos.length) updatePhoto();
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updatePhoto();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < photos.length - 1) {
+            currentIndex++;
+            updatePhoto();
+        }
+    });
+
+    // show 按钮：完全重建图片
+    const showBtn = document.getElementById('show-btn');
+    if (showBtn) {
+        showBtn.addEventListener('click', () => {
+            console.log('show 按钮点击，当前索引:', currentIndex);
+            // 直接重新调用 updatePhoto，它会重建整个图片元素
+            updatePhoto();
+        });
+    } else {
+        console.error('未找到 show-btn 元素');
+    }
+});
+</script>
                 </main>
                 <div class="sidebar-mask" id="sidebar-mask"></div>
             </div>
