@@ -142,59 +142,182 @@
 </script>
                 </aside>
                 <main id="pjax-container">
-                    <div class="post-full">
-        <!-- 相册网格：每行三个，图片 3:4 比例 -->
-        <div class="gallery-grid">
-            <!-- 相册项 1 -->
-            <a href="/about/album1/" class="gallery-link">
-    <div class="gallery-item">
-        <div class="thumbnail">
-            <img src="https://i.imgur.com/UZJT2jD.jpg">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <div class="post-meta" style="flex: 1; margin-left: 15px;">
+                
         </div>
-        <div class="caption">关于mamachapp的一切</div>
     </div>
-</a>
-            <!-- 相册项 2 -->
-            <a href="/about/album2/" class="gallery-link">
-    <div class="gallery-item">
-        <div class="thumbnail">
-            <img src="https://i.imgur.com/QAhA5Hd.jpg">
-        </div>
-        <div class="caption">生物</div>
-    </div>
-</a>
-            <!-- 相册项 3 -->
-            <a href="/about/album3/" class="gallery-link">
-    <div class="gallery-item">
-        <div class="thumbnail">
-            <img src="https://i.imgur.com/T7aYI91.jpg">
-        </div>
-        <div class="caption">还没放图</div>
-    </div>
-</a>
-            <!-- 相册项 4 -->
-            <a href="/about/album4/" class="gallery-link">
-    <div class="gallery-item">
-        <div class="thumbnail">
-            <img src="https://i.imgur.com/H0HThpH.jpg">
-        </div>
-        <div class="caption">还没放图</div>
-    </div>
-</a>
-            <!-- 相册项 5 -->
-            <a href="/about/album5/" class="gallery-link">
-    <div class="gallery-item">
-        <div class="thumbnail">
-            <img src="https://i.imgur.com/BU9WAHK.jpg" >
-        </div>
-        <div class="caption">DEADEND</div>
-    </div>
-</a>
-         
+    <div class="post-content">
+<button id="show-btn" class="button">reload</button>
+        <!-- 相册浏览组件 -->
+        <div class="album-viewer">
+            <div class="photo-container">
+		<div class="photo-placeholder" id="photo-placeholder">首图加载bug，需要刷新一次网页</div>
+                <img id="album-photo" src="" alt="" class="album-photo">
+                <div id="photo-caption" class="photo-caption"></div>
+            </div>
+            <div class="nav-controls">
+                <button id="prev-btn" class="button">← Prev</button>
+                <span id="photo-counter"></span>
+                <button id="next-btn" class="button">Next →</button>
+            </div>
         </div>
     </div>
 </div>
- 
+
+<style>
+/* 相册浏览样式，可继承主题变量 */
+.album-viewer {
+    text-align: center;
+}
+.photo-container {
+    margin-bottom: 20px;
+    position: relative;          /* 为占位符提供参照 */
+    min-height: 450px;           /* 防止容器坍塌，可自行调整 */
+}
+
+.photo-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;  /* 透明背景 */
+    color: #666;                     /* 文字颜色 */
+    font-size: 1rem;
+    text-align: center;
+    pointer-events: none;            /* 让点击穿透到按钮（如果需要） */
+    z-index: 1;                      /* 确保在图片下方，但图片加载后会覆盖 */
+}
+
+.album-photo {
+    position: relative;              /* 保证图片在占位符上方 */
+    z-index: 2;
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.photo-caption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #666;
+}
+.nav-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.nav-controls .button {
+    min-width: 100px;
+}
+#photo-counter {
+    font-size: 1.1rem;
+}
+</style>
+
+<script>
+// 照片数据
+const photos = [];
+let currentIndex = 0;
+
+// 获取关键DOM元素（这些元素是静态存在的）
+const imgEl = document.getElementById('album-photo');
+const placeholderEl = document.getElementById('photo-placeholder');
+const captionEl = document.getElementById('photo-caption');
+const counterEl = document.getElementById('photo-counter');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+
+// 更新图片显示
+function updatePhoto() {
+    if (!photos.length) {
+        captionEl.innerText = '';
+        counterEl.innerText = '0/0';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        if (placeholderEl) placeholderEl.style.display = 'flex';
+        imgEl.style.display = 'none';
+        return;
+    }
+
+    const photo = photos[currentIndex];
+    
+    // 显示占位符，隐藏图片
+    if (placeholderEl) {
+        placeholderEl.style.display = 'flex';
+        placeholderEl.innerText = '(*¯v¯*)';
+    }
+    imgEl.style.display = 'none';
+    
+    // 生成带时间戳的URL（强制刷新）
+    const separator = photo.url.includes('?') ? '&' : '?';
+    const uniqueUrl = photo.url + separator + '_t=' + Date.now();
+    
+    // 图片加载成功
+    imgEl.onload = () => {
+        console.log('图片加载成功:', uniqueUrl);
+        if (placeholderEl) placeholderEl.style.display = 'none';
+        imgEl.style.display = 'block';
+        captionEl.innerText = photo.caption || '';
+    };
+    
+    // 图片加载失败
+    imgEl.onerror = () => {
+        console.error('图片加载失败:', uniqueUrl);
+        if (placeholderEl) {
+            placeholderEl.style.display = 'flex';
+            placeholderEl.innerText = '加载失败，点刷新试试呢...';
+        }
+        imgEl.style.display = 'none';
+        captionEl.innerText = '图片加载失败';
+    };
+    
+    // 开始加载图片
+    imgEl.src = uniqueUrl;
+    imgEl.alt = photo.caption || '';
+    
+    // 更新计数器和按钮状态
+    counterEl.innerText = `${currentIndex+1} / ${photos.length}`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === photos.length - 1;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    if (photos.length) updatePhoto();
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updatePhoto();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < photos.length - 1) {
+            currentIndex++;
+            updatePhoto();
+        }
+    });
+
+    // show 按钮：重新加载当前图片
+    const showBtn = document.getElementById('show-btn');
+    if (showBtn) {
+        showBtn.addEventListener('click', () => {
+            console.log('show 按钮点击，当前索引:', currentIndex);
+            updatePhoto();
+        });
+    } else {
+        console.error('未找到 show-btn 元素');
+    }
+});
+</script>
                 </main>
                 <div class="sidebar-mask" id="sidebar-mask"></div>
             </div>

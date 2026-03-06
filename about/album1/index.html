@@ -142,18 +142,17 @@
 </script>
                 </aside>
                 <main id="pjax-container">
-                    <div class="card post-full">
-<div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <button id="show-btn" class="button">reload</button>
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
         <div class="post-meta" style="flex: 1; margin-left: 15px;">
                 
         </div>
     </div>
-
     <div class="post-content">
+<button id="show-btn" class="button">reload</button>
         <!-- 相册浏览组件 -->
         <div class="album-viewer">
             <div class="photo-container">
+		<div class="photo-placeholder" id="photo-placeholder">首图加载bug，需要刷新一次网页</div>
                 <img id="album-photo" src="" alt="" class="album-photo">
                 <div id="photo-caption" class="photo-caption"></div>
             </div>
@@ -173,8 +172,30 @@
 }
 .photo-container {
     margin-bottom: 20px;
+    position: relative;          /* 为占位符提供参照 */
+    min-height: 450px;           /* 防止容器坍塌，可自行调整 */
 }
+
+.photo-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;  /* 透明背景 */
+    color: #666;                     /* 文字颜色 */
+    font-size: 1rem;
+    text-align: center;
+    pointer-events: none;            /* 让点击穿透到按钮（如果需要） */
+    z-index: 1;                      /* 确保在图片下方，但图片加载后会覆盖 */
+}
+
 .album-photo {
+    position: relative;              /* 保证图片在占位符上方 */
+    z-index: 2;
     max-width: 100%;
     max-height: 70vh;
     object-fit: contain;
@@ -205,52 +226,61 @@
 const photos = [{"url":"https://i.imgur.com/UZJT2jD.jpg"},{"url":"https://i.imgur.com/xv7BHOA.jpg"},{"url":"https://i.imgur.com/X1YIOSn.jpg"},{"url":"https://i.imgur.com/KcyIP5w.jpg"},{"url":"https://i.imgur.com/H0HThpH.jpg"},{"url":"https://i.imgur.com/QWLjKAp.jpg"},{"url":"https://i.imgur.com/FOqtIDv.jpg"},{"url":"https://i.imgur.com/RSY3nuV.jpg"},{"url":"https://i.imgur.com/NBzAnVA.jpg"},{"url":"https://i.imgur.com/l26Ryz7.jpg"},{"url":"https://i.imgur.com/ccKJrMr.jpg"},{"url":"https://i.imgur.com/WluKVmA.jpg"},{"url":"https://i.imgur.com/9pCKdod.jpg"},{"url":"https://i.imgur.com/7qtQQaZ.jpg"},{"url":"https://i.imgur.com/s6N3oZx.jpg"},{"url":"https://i.imgur.com/2rLgDg7.jpg"},{"url":"https://i.imgur.com/tWkpAZM.jpg"},{"url":"https://i.imgur.com/8G4DLoU.jpg"}];
 let currentIndex = 0;
 
-// 获取关键DOM元素
-const photoContainer = document.querySelector('.photo-container'); // 图片容器
+// 获取关键DOM元素（这些元素是静态存在的）
+const imgEl = document.getElementById('album-photo');
+const placeholderEl = document.getElementById('photo-placeholder');
 const captionEl = document.getElementById('photo-caption');
 const counterEl = document.getElementById('photo-counter');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 
-// 初始化显示
+// 更新图片显示
 function updatePhoto() {
     if (!photos.length) {
-        if (photoContainer) photoContainer.innerHTML = '<p>No photos</p>';
         captionEl.innerText = '';
         counterEl.innerText = '0/0';
         prevBtn.disabled = true;
         nextBtn.disabled = true;
+        if (placeholderEl) placeholderEl.style.display = 'flex';
+        imgEl.style.display = 'none';
         return;
     }
 
     const photo = photos[currentIndex];
     
-    // 清空容器并创建新的img元素
-    photoContainer.innerHTML = ''; 
-    const newImg = document.createElement('img');
-    newImg.id = 'album-photo';
-    newImg.className = 'album-photo';
-    newImg.alt = photo.caption || '';
+    // 显示占位符，隐藏图片
+    if (placeholderEl) {
+        placeholderEl.style.display = 'flex';
+        placeholderEl.innerText = '(*¯v¯*)';
+    }
+    imgEl.style.display = 'none';
     
     // 生成带时间戳的URL（强制刷新）
     const separator = photo.url.includes('?') ? '&' : '?';
     const uniqueUrl = photo.url + separator + '_t=' + Date.now();
-    newImg.src = uniqueUrl;
     
-    // 图片加载成功/失败处理
-    newImg.onload = () => {
+    // 图片加载成功
+    imgEl.onload = () => {
         console.log('图片加载成功:', uniqueUrl);
+        if (placeholderEl) placeholderEl.style.display = 'none';
+        imgEl.style.display = 'block';
         captionEl.innerText = photo.caption || '';
     };
-    newImg.onerror = () => {
+    
+    // 图片加载失败
+    imgEl.onerror = () => {
         console.error('图片加载失败:', uniqueUrl);
-        captionEl.innerText = '图片加载失败，请重试';
-        // 可以尝试回退到无时间戳的URL
-        // newImg.src = photo.url;
+        if (placeholderEl) {
+            placeholderEl.style.display = 'flex';
+            placeholderEl.innerText = '加载失败，点刷新试试呢...';
+        }
+        imgEl.style.display = 'none';
+        captionEl.innerText = '图片加载失败';
     };
     
-    // 将新图片添加到容器
-    photoContainer.appendChild(newImg);
+    // 开始加载图片
+    imgEl.src = uniqueUrl;
+    imgEl.alt = photo.caption || '';
     
     // 更新计数器和按钮状态
     counterEl.innerText = `${currentIndex+1} / ${photos.length}`;
@@ -276,12 +306,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // show 按钮：完全重建图片
+    // show 按钮：重新加载当前图片
     const showBtn = document.getElementById('show-btn');
     if (showBtn) {
         showBtn.addEventListener('click', () => {
             console.log('show 按钮点击，当前索引:', currentIndex);
-            // 直接重新调用 updatePhoto，它会重建整个图片元素
             updatePhoto();
         });
     } else {

@@ -329,8 +329,8 @@ nav {
 
 .rm-link {
   position: relative;
-  width: 120px;
-  height: 30px;
+  width: 100px;
+  height: 20px;
   display: flex;
   align-self: flex-end;
   margin-top: auto;
@@ -355,7 +355,8 @@ nav {
 
 .read-more {
   position: relative;
-  z-index: 2;
+  z-index: 4;
+  font-size: smaller;
 }
 
 .article-title {
