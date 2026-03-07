@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>
+        puppyarchive
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        
+            <link rel="icon" href="/image/icon/vista_messenger.jpg">
+        
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="container">
+        <!-- header -->
+        <div class="header" id="pjax-header">
+    <header class="card">
+        <p class="blog-title">
+            乌托邦的幽灵，在神州大地徘徊
+        </p>
+    </header>
+    <nav class="button-bar">
+        <ul class="nav-links">
+            <li>
+                <a href="/" class="button link-home ">
+                    <span class="nav-text">
+                        <img src="/image/icon/vista_messenger.jpg" alt="home" class="icon">
+                        <span>Home</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives" class="button ">
+                    <span class="nav-text">
+                        <img src="/image/icon/vista_book_1.jpg" alt="posts" class="icon">Archives    
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" class="button ">
+                    <span class="nav-text">
+                        <img src="/image/icon/vista_photo_gallery.jpg" alt="about" class="icon">Gallery
+                    </span>
+                </a>
+            </li>
+            
+        </ul>
+
+    </nav>
+</div>
+
+        <div class="button mobile-menu-btn" id="mobile-menu-btn">
+            <span class="menu-icon ri-menu-fill"></span>
+        </div>
+
+            <div class="main-layout">
+                <aside id="sidebar">
+                    <div class="widget avatar-widget">
+    <div class="avatar-bg">
+        <a target="_blank" rel="noopener" href="https://pointer-pointer.netlify.app/">
+            <img src="https://avatars.githubusercontent.com/cloudstrifeisinmyhand" class="profile-img">
+        </a>
+    </div>
+</div>
+<div class="widget card profile-widget">
+    <div class="profile">
+        <div>JULE</div>
+        <div>
+            
+            
+                <a href="https://music.163.com/#/user/home?id=1377043377" class="button profile-link" target="_blank" title="Music163">
+                    <img src="/image/icon/163.png" class="profile-icon" alt="Music163">
+                </a>
+            
+                <a href="https://www.douban.com/people/fuckedgenius/?_i=2630460Qak-dtN" class="button profile-link" target="_blank" title="Douban">
+                    <img src="/image/icon/douban.png" class="profile-icon" alt="Douban">
+                </a>
+            
+        
+        </div>
+    </div>
+    <div class="about">
+        所有投向他者的目光都必然履行向自身的返还。“你为什么从来不在我看向你的位置看我一眼?”
+    </div>
+</div>
+
+
+<div class="widget music-widget">
+    <div class="player-content">
+        <div class="song-info">
+            <div class="info-bg album-art" id="albumArt"></div>
+            <div class="info-bg title-bar">
+                <span class="song-title" id="songTitle">Loading...</span>
+            </div>
+        </div>
+
+        <div class="info-bg progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="controls">
+            <button class="button play-btn" id="playBtn">
+                <span id="playIcon" class="ri-play-large-fill"></span>
+            </button>
+            <button class="button ctrl-btn" id="prevBtn">
+                <span class="ri-skip-back-fill"></span>
+            </button>
+            <button class="button ctrl-btn" id="nextBtn">
+                <span class="ri-skip-forward-fill"></span>
+            </button>
+        </div>
+    </div>
+
+<div class="playlist-container">
+    <ul class="playlist" id="playlist">
+        <!-- 列表项将由 JavaScript 动态生成 -->
+    </ul>
+    <div class="pagination">
+        <button class="page-btn prev" disabled>&lt;</button>
+        <button class="page-btn next">&gt;</button>
+    </div>
+</div>
+
+    <audio id="audioPlayer"></audio>
+</div>
+
+<script>
+    var musicConfig = {
+        autoplay: false,
+        playlist: [{"title":"Underground River","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509106640.mp3"},{"title":"グライド","artist":"Salyu","cover":"https://i.imgur.com/ci7IJA7.png","url":"https://music.163.com/song/media/outer/url?id=609035.mp3"},{"title":"Arabesque No. 1","artist":"Ronan OHora","cover":"https://i.imgur.com/fD7hVCC.png","url":"https://music.163.com/song/media/outer/url?id=26875197.mp3"},{"title":"飽和","artist":"Salyu","cover":"https://i.imgur.com/ci7IJA7.png","url":"https://music.163.com/song/media/outer/url?id=609022.mp3"},{"title":"エロティック","artist":"Salyu","cover":"https://i.imgur.com/ci7IJA7.png","url":"https://music.163.com/song/media/outer/url?id=609009.mp3"},{"title":"森ノ王国","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490583.mp3"},{"title":"穏ヤカナ眠リ","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490565.mp3"},{"title":"To the Abyss!","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509106626.mp3"},{"title":"Outside","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509106637.mp3"},{"title":"Riko's Theme","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509106629.mp3"},{"title":"2 Months","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509098787.mp3"},{"title":"Remembering Home","artist":"Kevin Penkin","cover":"https://i.imgur.com/XdPw3No.jpg","url":"https://music.163.com/song/media/outer/url?id=509098786.mp3"},{"title":"美貌の青空","artist":"坂本龍一","cover":"https://i.imgur.com/idrJ8cd.png","url":"https://music.163.com/song/media/outer/url?id=633091.mp3"},{"title":"鉄道員","artist":"大貫妙子/坂本龍一","cover":"https://i.imgur.com/idrJ8cd.png","url":"https://music.163.com/song/media/outer/url?id=633075.mp3"},{"title":"Reverie","artist":"Ronan OHora","cover":"https://i.imgur.com/fD7hVCC.png","url":"https://music.163.com/song/media/outer/url?id=26875201.mp3"},{"title":"La Fille aux cheveux de lin","artist":"Ronan OHora","cover":"https://i.imgur.com/fD7hVCC.png","url":"https://music.163.com/song/media/outer/url?id=26875205.mp3"},{"title":"The Swan","artist":"London Philharmonic Orchestra","cover":"https://i.imgur.com/J4Erv46.png","url":"https://music.163.com/song/media/outer/url?id=2986849.mp3"},{"title":"24 Préludes for Piano, Op. 28: No. 4 in E Minor - Largo","artist":"Ivan Moravec","cover":"https://i.imgur.com/9Bpcqve.png","url":"https://music.163.com/song/media/outer/url?id=34364466.mp3"},{"title":"Without Wind","artist":"Hiroyuki Onogawa","cover":"https://i.imgur.com/0qETvQZ.png","url":"https://music.163.com/song/media/outer/url?id=2612408406.mp3"},{"title":"Boreal Forest","artist":"Mammal Hands","cover":"https://i.imgur.com/iVyINyU.png","url":"https://music.163.com/song/media/outer/url?id=518895199.mp3"},{"title":"いつでも誰かが (平成狸合戦ぽんぽこ)","artist":"紅龍","cover":"https://i.imgur.com/jEoC7m2.png","url":"https://music.163.com/song/media/outer/url?id=442328.mp3"},{"title":"潮鳴り","artist":"折戸伸治","cover":"https://i.imgur.com/s1fV7oX.png","url":"https://music.163.com/song/media/outer/url?id=22707008.mp3"},{"title":"潮鳴り II","artist":"折戸伸治","cover":"https://i.imgur.com/s1fV7oX.png","url":"https://music.163.com/song/media/outer/url?id=22706999.mp3"},{"title":"aquatic ambience","artist":"Scizzie","cover":"https://i.imgur.com/06nBZlO.png","url":"https://music.163.com/song/media/outer/url?id=1990353740.mp3"},{"title":"distant ocean","artist":"alyzea","cover":"https://i.imgur.com/zQqlYQu.png","url":"https://music.163.com/song/media/outer/url?id=2702262158.mp3"},{"title":"Terror In The Depths Of The Fog","artist":"山岡晃","cover":"https://i.imgur.com/GLVcuY9.png","url":"https://music.163.com/song/media/outer/url?id=18861483.mp3"},{"title":"Dual","artist":"Solar Fields","cover":"https://i.imgur.com/9S46FRg.png","url":"https://music.163.com/song/media/outer/url?id=5001451.mp3"},{"title":"Edge Flight","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298665.mp3"},{"title":"Jacknife","artist":"Solar Fields","cover":"/image/music/SOLAR.jpg","url":"https://music.163.com/song/media/outer/url?id=4298669.mp3"},{"title":"Cytus - Title Screen","artist":"Rayark","cover":"https://i.imgur.com/wgTj3tB.png","url":"https://music.163.com/song/media/outer/url?id=4916156.mp3"},{"title":"Omónia","artist":"Von Spar","cover":"https://i.imgur.com/GGd8qNL.png","url":"https://music.163.com/song/media/outer/url?id=1298611259.mp3"},{"title":"Purity","artist":"ONEEVA","cover":"https://i.imgur.com/LwPlToL.png","url":"https://music.163.com/song/media/outer/url?id=541515731.mp3"},{"title":"Hit","artist":"The Sugarcubes","cover":"/image/music/BJORK.jpg","url":"https://music.163.com/song/media/outer/url?id=3572127.mp3"},{"title":"……なければ君がくれたものはわからない","artist":"MORRIE","cover":"/image/music/MORRIE.jpg","url":"https://music.163.com/song/media/outer/url?id=3341947232.mp3"},{"title":"心地よい雨","artist":"MORRIE","cover":"/image/music/MORRIE.jpg","url":"https://music.163.com/song/media/outer/url?id=3341947234.mp3"},{"title":"Sunset","artist":"Syoko","cover":"https://i.imgur.com/yUuxEZr.png","url":"https://music.163.com/song/media/outer/url?id=22807349.mp3"},{"title":"Why Do You Love Me?","artist":"Cocteau Twins","cover":"https://i.imgur.com/S1gBW4M.png","url":"https://music.163.com/song/media/outer/url?id=18201826.mp3"},{"title":"Eyes Are Mosaics","artist":"Cocteau Twins","cover":"https://i.imgur.com/S1gBW4M.png","url":"https://music.163.com/song/media/outer/url?id=18201827.mp3"},{"title":"取リ憑イタ業病","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490587.mp3"},{"title":"曖昧ナ希望/氷雨","artist":"帆足圭吾","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490576.mp3"},{"title":"還ラナイ声/ギター","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490571.mp3"},{"title":"Weight of the World/Nouveau-FR Version","artist":"Emi Evans/岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490607.mp3"},{"title":"偽リノ城塞","artist":"岡部啓一","cover":"/image/music/NIER.jpg","url":"https://music.163.com/song/media/outer/url?id=468490597.mp3"}]
+    };
+</script>
+                </aside>
+                <main id="pjax-container">
+                    <div class="card post-full">
+    <span class="post-title article-title">
+        As time goes by
+    </span>
+
+    <div class="post-meta">
+            
+    </div>
+
+    <div class="post-content">
+        <p>二零一六年七月的时候，我结婚了。在那个平常而暗流涌动的夏天，这件事在我的朋友圈子里算是一桩不小的新闻，像一块不该出现的石子，在一群中年人死水般的生活中激起一阵涟漪。一通通电话打来，有程序性表达祝贺的，有好奇问我怎么突然“想通”了的，也有怂恿我带那位神秘的妻子出来见面的。在我写作生涯的二十余年间，虽然没有人公然询问或谈论，但每一个结识我的人都深知我是一个多么“厌恶女人”的作家。从我刚从东京大学毕业时写的一系列少年强说愁的小说成名作开始，我就得到了一些类似于“黑塞在东方的精神后裔”的名号，尽管我认为这有博人眼球的嫌疑；后来我不再写小说而是跟随老师做学术，也做出了一些名气，而都是唯意志论方向的。对于认识我的人来说，剃度去某个寺庙里知行合一地研究佛法禅宗，显然比在年近四十的时候突然娶妻要合理。<br><br>在一生中始终践行着“经过审视的生活”、每一个决策都将理性置于至高无上的位置，这样的人是几乎没有的。我的同窗和同行没有一个不是在理性主义的笼罩下一路走来，也都曾扬言着一些什么，但最后却都发生了各自的“意外”——我们可以说人生的故事便是由这些意外组成的，地球生物的繁衍和进化也离不开这种意外。人真的无法脱离基因这双大手的控制吗？我无数次思考这个问题，在我头一次产生结婚想法的时候，在我家里不断出现女人的头发的时候，也在我把戒指套在对方无名指上的时候。<br><br>我的妻子是我那年年初在摩洛哥旅行时遇到的日本人。如果套用“世界上有那么多城镇、那么多酒馆，我却偏偏走入了她那一间”来形容这种缘分，确实有些牵强了：我们都知道卡萨布兰卡有一家里克咖啡馆，凡是去摩洛哥旅行的人都是多少要去坐的。白色拱门、几何地砖、老式钢琴、雕花木门——尽管我被告知这家咖啡馆并不是那部有名电影的真正拍摄场地，而是在电影出名之后搭建的复刻场景，但因为足够精美，也没有人介意这种景观真正的性质了。这家店需要预约，一次只能坐两个小时，甚至有dress code。我在卡萨布兰卡待了三天，也在那里坐了三天。第一天，我点了一杯招牌咖啡，一边听着来旅游的客人跟随店员在店内的著名打卡机位拍照时上下楼梯的鞋跟声，一边观赏着窗外的街景。我没有尝出这里的咖啡有什么特别之处，想必他们做咖啡的水准是普通的，而咖啡也不是这家店的卖点。第二天，我没有继续点咖啡而是点了酒，发现这里的酒其实是不错的。第三天，我先去了附近的城镇逛了一下午，到咖啡馆的时间是晚上七点。走进那栋白色楼房门前的两棵棕榈树之间，我看到屋内的灯光是暖黄的。那架我以为是摆设的老式钢琴此时也发出了声音，正是电影里那曲《As Time Goes By》。我选了一个角落的位置，点了一杯酒和一份甜品，看着投影仪播放的黑白电影发呆。<br><br>我很确定，那绝对算不上是一个“浪漫的”“电影般的”场景：屋内来自五湖四海客人用不同语言谈笑的声音、电子屏幕发出的非环境光、空气中弥漫着的品质不高的咖啡豆味，都属于一个数码的时代，而并非黑白胶卷的质感；我那天只是穿着一身不起眼的暗色衣服，而不是电影中复古的白色西装。因此，当一个女服务生端来我的酒和甜品并把一个用日语显示着“我可以为您拍摄这个浪漫的电影般的场景吗”的手机屏幕举到我面前示意的时候，我有些手足无措。我抬头，一时看不出对方的种族——浓密的黑发和深邃的五官似乎都示意着北非本地人的血统，但举手投足的姿态却有熟悉的、化成灰我都能认出的日本人的风味。我想询问她这是否是在兜售某种店内拍照服务，却觉得不太好开口，话到嘴边却成了日语“您是怎么认出我是日本人的”。服务生没有说话，而是低头在手机屏幕上打字，上挑的眉毛和低垂的浓密睫毛完全是老电影里白种女人的姿态，我开始怀疑对方是日本人的可能性是否存在。片刻后她将手机递给我，仍然是大段的日语：很抱歉我无法开口说话，由于生理的原因。我是日本人，在这里打工。如果您不介意的话，我会为您拍一张宝丽来相片免费赠送给您。<br><br>于是我让她拍下了那张我那趟旅行里唯一的他拍照片。那张宝丽来相片如今还夹在书架上的某本书里，可能是《古典时代疯狂史》也可能是《视差之见》，总之是那趟旅程带去的某一本。那张照片拍得并不好，可能是由于屋内灯光昏暗而她也没有打开闪光灯。照片上是我和那张角落的方桌，我一只手撑在桌子上，翘着二郎腿随意坐着，眼神汇聚在一个不知名的方向——这使得这张照片像是抓拍而并非摆拍，但这也许是拍立得把物体拍得模糊的原因。这些影像还没有立刻显示在相纸上，在她把照片递给我的时候。相片还是一片灰白色，上面略有一些人和桌子的轮廓。<br><br>后来我请她喝了酒，我们的交流显得像独角戏，是我一人说话而她只能打字的原因。她告诉我她叫秀子，在这里人们都叫她Heidi。虽然是取自Hideko的谐音，但这个让人联想到金发女郎的中欧名字让她的形象变得更加奇异而错综复杂。秀子长着一张昭和时代混血儿审美下影坛玉女的脸，轮廓很硬朗，由于不能开口说话而是只能用神情和人交流的缘故，盯着人看时眉眼总是像会说话一般真诚，让人想到阿佳妮被发掘时导演形容的“光是站在那里，就带有戏剧的氛围”。她说她二十二岁，不是混血儿，是土生土长的日本和歌山人，跟随亲戚来卡萨布兰卡生活。酒馆关闭后我带她出门散步，一路上没有什么灯光，只有一轮下弦月。她的手机没有电了，于是只能打手势和我交流，我理解错误或者不理解的时候，她便闭眼含着笑意小幅度地摇头，换一种方式表达那个意思。遇到我始终也没能理解的，便只能在一团和气中作罢。我此时意识到，秀子的语言随着她手机耗尽的电量一起消失了，我们谈话的空间被我的权力完全挤满。她仿佛早已习惯这一切似的，像一块柔韧的海绵，填充着谈话空间里那些边角的位置。她点头、摇头、眨眼和微笑的方式，都是典型的日本人的动作，让人觉得虽然长了一张白人的脸，但完全是大和抚子的个性——虽然我心里暗暗明白，这是她失去了语言的原因。她就像我笔下的小说人物，失去了自主表达的权力，只剩下了被我解读的份了。<br><br>然而，秀子的权力在临近分别的时候又达到了完全凌驾在我们两人之上的位置。我们都清楚则是一种脆弱的、细若游丝的缘分，第二天太阳出来的时候，我们也许就会完全回到陌生人的社交距离。或者如果秀子不愿意继续跟来过夜，那么这种露水情缘般的东西都不会存在。于是我的言行中带上了一些我们都很难察觉的讨好她的成分，就像是一种想要抓住什么的恳求。幸运的是她给了这个机会。或许是我早已习惯于展现出来的谦谦君子的样子让她感到愉快，又或许是我日本人的身份触发了她恋家的情绪，但我明白更根本的原因是我看上去比实际年龄年轻十岁，而且戴了一块名贵的手表。女人就是这样的。她们的想法看似难以捉摸，但实际上就是那样。第二天早晨，我看着酣睡的秀子婴儿般的脸，心中一阵柔软，头一次产生了一种归隐的想法。我或许我第一次产生结婚的想法就是在这时候。窗外有清脆的鸟叫声，和往常的几天本该一样，但今天的声音格外冷酷。我木然地立坐在床的正中央，骤然感觉自己老了，像其他人一样开始害怕孤独，开始想要祈求一个拥有年轻妻子的宜居的住所，过那种田园牧歌般的生活。<br><br>这个想法只是一闪而过，我确定当时我把它当成了一种人到中年的更年期综合征一样的东西。我一直都认为跟女人一起生活是难以忍受的。她们懒惰，不思考，不求进取，愚昧，目光短浅，难以沟通，却恰恰拥有大多数男性离不开的性资源，于是便利用这一点试图扰乱一切。女权主义批评社会将女人异化成了这样的生物，而并非她们生来如此，所以应该打破这种秩序。但我想说这是一种诡辩。人生来就是要被异化的。不管是白人还是黑人，有钱人还是穷人，剥削者还是被剥削者，男人还是女人，既然一个社会是由这些零件构成，那么被异化为其中的一种零件是每个人都逃脱不了的命运。人应当接受自己的命运，或者说，人只能接受自己的命运。没有人可以先验地评价和选择自己的命运。你或许可以哭闹着夺来一些权力，但大体上是改变不了的；如果你生来就没有干某件事的头脑，那么即便夺来干这件事的机会也最终会失去。而打着纠正历史错误的正义旗号的那些主义，不管举旗的人知不知道这回事，都是在无理取闹，用不合作的方式祈求别人分自己一点权力而已。不管怎么样，祈求就是祈求，而根本不是像表面宣称的那样，“自己争取来的”。事实上，女人就是相比男人更没有思想和创造力的一种生物，虽然原因不明。我交往过很多女人，甚至包括最聪明的在东大读书的那部分。但无一例外地，我发现自己无法忍受她们。<br><br>而秀子也不例外，只是这样的女人的一员而已。她二十二岁，使用自己魅力的手段符合年龄地拙劣。一想到她是如何故作娴熟、如何强装冷静和如何带有一些做作地表演，我就不由得笑出声来。<br><br>有所不同的是，秀子是一个哑女。她不说话，所以姿态和神情比常人复杂而隽永。她晨间穿着一件普通的连衣裙、披散着卷发的样子有点像老电影里的女主角，和卡萨布兰卡这座老城岁月的纹理有些相配。她拿起我的一本书随意翻看的时候神色安宁、目光低垂，让人不知道她在想什么，是看懂了还是没看懂。或许是哑巴的缘故，她养成了非必要不表达的习惯，因此即便她读过齐泽克，也要我问过才知道。然而，我是不会问一位女士这种意义不大的问题的。她熟悉卡萨布兰卡这一带，因此在我旅程仅剩的五天里，她带着我四处闲逛，晚上去咖啡厅轮班。我们不怎么说话，而事实证明和女人不说话的感觉更好。她个子娇小，把棕色的卷发编成辫子，穿着款式再简单不过的连衣裙，戴上墨镜和遮阳帽，就活像一名随丈夫或情人来这里度假的外国游客。我们去遍了城区每一家好吃的餐馆，都是我点餐和付钱，像是在玩什么角色扮演游戏。我们对此心照不宣。<br><br>离开的前一天，我无缘无故地发烧了。我有些记不清自己睡了多久，只记得恍惚之中秀子在给我冰敷和倒水。她披散着头发，脸上不施粉黛，眉头微皱，看我的眼神有些担忧。我听见毛巾拧水的声音，也听见她出了两次门，最后带回了一种退烧药片，那个坚硬苦涩的异物最后进了我的喉咙，咽下之后我清醒了许多。秀子还在厕所里洗着什么。我不禁又小声地笑了出来，这个场景有些滑稽。短短相识的五天后，没想到还会上演一出这样的戏码，我想我的确把对方的便宜都占尽了。<br><br>第二天醒来，我感到神清气爽，似乎已经完全好了。我看了时间，是中午十二点，飞机起飞的时间是下午四点。然后，我便感受到了肩膀上有什么潮湿的东西。我扭过头，看到秀子泪痕斑驳的脸。她还在睡梦当中，皱着带有戏剧性的眉毛，泪水把睫毛打湿成根根分明的样子。那个梦似乎还在继续，她整个人有点颤抖，泪水还在不断洇湿枕头的布料。我记得有不能叫醒做噩梦的人的说法，因此只是搂住她试图安抚。那些眼泪还在不断地溢出来。我已经习惯了不和她说话，因此即便她醒了，或许我也不会问什么。我开始猜测那个噩梦的内容，或许是我发烧的事情勾起了她的某个痛苦的回忆。一本小说开始在我脑中构思。在和歌山出生的少女生来父亲就死了，把唯一一位关心的她的男性长辈，母亲在摩洛哥经商的朋友当做父亲看待。后来那位叔叔死于肺炎引起的高热，母亲才痛哭着告诉她他是她真正的父亲。对于此刻的她来说，是在父亲发热时疏于照顾导致的悔恨痛苦，还是从小长着混血儿面孔的谜团终于解开带来的身份认同问题更痛苦？长大后她来到摩洛哥，试图寻找父亲生活过的踪迹，但这一切都已经彻底错位了。秀子在我怀里挣扎了一下，打断了我的构思。她还是没有醒，但已经没有哭了。我想或许她只是做了一个毫无意义的噩梦，比如梦见小时候玩具被抢了之类的。我有的时候也会做这种毫无意义的噩梦。我会想象这么多，只不过是因为她长了一张演员般的脸，哭的时候更有感染力而已。又或许是因为她哑巴的缘故，我已经习惯了不与她交流，所以光顾着把她当作小说人物了。更重要的是，她的神秘或许不是哑巴带来的，更像是我选择的。事实上是我塑造了我看到的她。<br><br>走之前我们交换了联系方式。回到日本之后，我继续回学校工作。六月时，秀子也回了日本。她在东京做了一份零工，开始断断续续地和我联系并见面。七月的时候，我们结婚了。事情好像是突然的，又好像是早已深思熟虑过的。但这是有点颠覆的。<br><br>秀子有点像电影演员，还是上个世纪默片里那一款的。不仅是外貌，思考方式和神态也是。你可以在她身上找到如今这个时代很难找到的复古感。与其说是复古，不如说是黄金时代的感觉，是女性气质还没有失落，男女关系的田园时代。我无数次试探她，例如发表现在的年轻女学生一听就会生气的言论，让她承担所有家务之类。她都自然而然地接受了，仿佛她也是被这样教育的一样。但这也有可能是因为我给她钱，那是她很难通过工作挣到的分量。秀子是哑女，什么也不会说，所以这一切从头到尾哪怕有一些钱色交易的成分，都是道貌岸然的。但更令人无法拒绝的是，她有一种难得的天真和愚钝，总是在我反对她的时候瞪着一双无辜的大眼睛看着我，从不忤逆我，扮演着她那个贤妻良母一样的角色。有时候很难说是不是在扮演。或许她从头到尾就是一个知行合一的珍稀动物，一个浑然天成的完美妻子。或许我便是抱着这样的心态和她结婚了。<br><br>婚后的生活是平静的。几年如一日。我做的工作是两点一线的，往往是文字工作。秀子总是做好饭等我回家。绝大多数时间是沉默，我们彼此也习惯这一切。我们一直没有孩子。我本来就不喜欢孩子，秀子也没有提过这个想法。我想她可以成为一个好母亲，但只是在孩子三岁之前和成年之后。我无法想象一个不能说话的母亲如何招架一个几岁的小恶魔。我和秀子每天见面的时间实际上不多。十几岁的时候，我也曾有过夫妻间无话不谈、爱好一致的幻想，但如今我也习惯了这样的生活。其实我结婚已经是一个奇迹了。我每个月给秀子的银行卡打一笔不少的钱，然后她便会像个田螺姑娘一样，把家里的一切都安排妥当——实际上安排两个人的生活也没什么工作量。有洗衣机，干洗店，自动扫地机器人等等，我想她每天需要干的事情并不多。她似乎没有什么特别的爱好，家里总是非常安静。有时候她会出门，但几乎总是在天黑前回家。偶尔的一些时候她告诉我要离开几天，就像我自己也会做的一样。<br><br>今年我查出了二期胃癌。这是一个有点绝望的消息，但是一切都有迹可循。我的父亲就是胃癌去世，我的胃也一直不好。我开始住进医院系统性治疗，于是秀子便来回跑地照顾我。正是在那段时间，我产生了重新动笔写小说的想法。生死这个主题其实有些太老套了。从年轻时起，我就不断地阅读和写作，把那些“沉重的”问题思考了一遍又一遍。这些问题像顽石一样坚硬、厚实而荒诞，却似乎已经积满了我思考的皱褶。但是，这些问题只是存在着，像大地一样。但当生与死降临到我自己身上的时候，却变得轻飘飘的，没有什么实感。四十多年的人生里，由于职业的缘故，我其实已经发表了超乎自己预期数量的作品。至于小说，年轻时写下那套让我一炮成名的四部曲之后，我就宣称自己封笔了。“我无话可说了”，我记得我是这样说的，这是引用了十九岁就封笔的天才诗人兰波的话。人年轻的时候总是有种天才情结。我回读了那些小说，实际上也没有仔细读完。那些语句总是令我笑出声来，或许是因为太决绝或者太稚嫩了。我买了一部最新的轻薄笔记本重新开始写小说，每天下午就坐在医院楼下的花园里，有点像某种结算画面——像《一九八四》的主角天天坐在栗树咖啡馆一样。我打算从秀子入手，写了好几版开头，都不太满意。我发现自己的语言已经碎成了一片一片，无法再像年轻时那样构成完整的叙事——恍惚中我好像透过了年轻时自己的目光批判地否掉这些文字，颇有一些嘲弄的意味。<br><br>两个月也无果之后，我发现了自己缺少的那个灵感是什么。问题不是出在我的文学技巧，而是出在秀子本身。秀子的形象是完美的，也是空无一物的。她像一条美丽的龙，却没有点上睛。我想起了多年前她在我怀里做噩梦时我想到的那个故事。那个虚构的故事有得写，但如果真的写那样的故事的话，又太庸俗了。真正的转折出现在不久之前。我可以确定，这件事是我这辈子经历过最怪的事，把我心中关于秀子的一切都否定了。或者说，把造成我人生的一部分观念都颠覆了。<br><br>那是一个平常的午后，我百无聊赖，下载了一个现在很流行的短视频软件。鬼知道为什么我之前从来不下载这些软件。没多久，我就看到了一个熟悉的身影。我很确定那就是秀子。棕色的长卷发，完全一样的脸。我坐直了反复播放。秀子和一群年龄相仿的年轻人在一个酒吧演出，台下的人在为他们疯狂叫喊。我点开相关视频，发现这竟然是一个叫做“空中之桥”的当红组合。在其他视频里，秀子坐在一套巨大的鼓后面表演。我点开更多视频，看到了Heidi的名字。我搜索这个名字，发现我结婚八年的妻子一直以来都是一个当红乐队的鼓手Heidi。一直都是。八年前就已经是了。我翻到了那张在摩洛哥取景的专辑，看到了他们表演的录像。我看着那个身影，感到有些恍若隔世。Heidi。她曾经亲口告诉过我这个名字。我查了一整个下午的资料，网上有关于她的许多报道。她事业的巅峰期甚至已经过去了，那是五年前，而我浑然不知。彼时他们在几个城市的巨蛋巡回演出。现在他们已经活动减少，只是偶尔还会演出。<br><br>秀子傍晚照常来了医院为我带来饭菜。我感到有些好笑。她看到了我望着她的复杂表情，疑惑而无辜地瞪大了眼睛，一边打开那些饭盒，像是在问我怎么了。我想开口，但发现无法开口了。是要质问“你为什么不告诉我你其实是个明星”吗？这太荒谬了。我无法开口，是因为我们之间从来没有开过口。我选择了这一切。前些天医院给我开了病情恶化和手术治疗的单子，而手术不是完全没有风险的。我突然意识到自己已经是一个快要病死的老人了，而我的一生完全错过了秀子。不如说是我自己选择闭上眼睛和耳朵去错过这一切的。我压根没有问过。秀子跟着医生去签一些字，关上了房门。我有什么要对她说的？一切话语早就凝滞了。我悲惨地发现，自己现在脑子里正在想象的，竟然是她因为听力弱才去学打鼓这件事。我还在构建对她的想象。即便到了这个地步，我还是控制不住自己地去塑造她。她是一个活生生的人，从来不是我想的这么回事。我对于她而言从来就是一个有钱的老头而已，我突然可怕地想到。我给她的那些钱和对她不闻不问的态度正是她想要的，用一些简单的家务和照顾来换取这些其实是一个划算的美差。如果她有什么目的的话，那她早就已经轻松达到了，而我还在给她编造天真妻子的形象来说服我自己。我已经老了，病危了，而她风华正茂，拥有在这个世界上呼风唤雨的权力和金钱。我感到自己在慢慢消解，变得羸弱而扁平，而她成为了那个我世界中心的人。我的一切，衣食住行，都是她在决定。如果这其中有什么原因，我想是年龄吧。她足足比我年轻十七岁。秀子回来了，看起来一点也没变，还是年轻和美丽的。她贴心地端起汤碗给我喂汤，动作十分平稳，但我感到有点可怕——像是在干喂仓鼠一样的事情。我一口口喝着她喂给我的汤，尝着无机盐的咸味，一边想着这个画面——在医院里的一个房间，墙壁是死气沉沉的淡蓝色，房间里没有说话声，只有汤匙碰碗壁的声音。一张病床上，一个年轻的鼓手在给一个年迈老人送终。或许不是突然变成这样的，我想。或许向来如此。时间是残酷的。</p>
+
+    </div>
+</div>
+                </main>
+                <div class="sidebar-mask" id="sidebar-mask"></div>
+            </div>
+            <!-- footer -->
+            <footer class="card">
+    <div class="copyright">
+        <p>Copyright © 2026
+                JULE
+        </p>
+        <p>Powered by Hexo</p>
+    </div>
+</footer>
+    </div>
+
+    <script src="/js/responsive.js"></script>
+    <script src="/js/music.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Pjax({
+                elements: 'a[href]:not([target]):not([data-no-pjax])',
+                selectors: [
+                    'title',
+                    '#pjax-container',
+                    '#pjax-header'
+                ]
+            })
+        })
+    </script>
+    
+</body>
+
+</html>

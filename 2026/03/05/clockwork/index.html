@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a href="/about" class="button active">
+                <a href="/about" class="button ">
                     <span class="nav-text">
                         <img src="/image/icon/vista_photo_gallery.jpg" alt="about" class="icon">Gallery
                     </span>
@@ -142,182 +142,20 @@
 </script>
                 </aside>
                 <main id="pjax-container">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <div class="post-meta" style="flex: 1; margin-left: 15px;">
-                
-        </div>
+                    <div class="card post-full">
+    <span class="post-title article-title">
+        The Use of Counterpoint in Film Music:  A Clockwork Orange’s Dystopian Mood from Soundtrack
+    </span>
+
+    <div class="post-meta">
+            
     </div>
+
     <div class="post-content">
-<button id="show-btn" class="button">reload</button>
-        <!-- 相册浏览组件 -->
-        <div class="album-viewer">
-            <div class="photo-container">
-		<div class="photo-placeholder" id="photo-placeholder">首图加载bug，需要刷新一次网页</div>
-                <img id="album-photo" src="" alt="" class="album-photo">
-                <div id="photo-caption" class="photo-caption"></div>
-            </div>
-            <div class="nav-controls">
-                <button id="prev-btn" class="button">← Prev</button>
-                <span id="photo-counter"></span>
-                <button id="next-btn" class="button">Next →</button>
-            </div>
-        </div>
+        <p>A Clockwork Orange, a dystopian cult classic directed by Stanley Kubrick, was an iconic initial attempt to use classical music in violent scenes. The film tells the story of Alex DeLarge, a troubled teenager living in a futuristic England who commit crimes arrested by the police, and eventually become a test subject for the Home Secretary’s aversion therapy technique. Through this story, the film discusses the issues of societal power and free will. Classical music by composers including Ludwig van Beethoven, Gioachino Rossini, and Edward Elgar is used extensively in the film, albeit in an absurd and offensive manner. Classical music accompanies scenes of violence and evil and even appears for the first time as an electronic version. This article will roughly analyze how the film’s soundtrack sets the dystopian mood with the use of counterpoint.<br><br>Cinematic counterpoint is defined as music that is the opposite of what one would expect to hear in a movie (Pascual, 2021). In this movie, there are two types of counterpoint: the dissonance between the scene and the music as a cultural symbol and the dissonance between the original music and the altered version played on a synthesizer. There are many examples in movies of the first type of counterpoint. For instance, “Rossini — The Thieving Magpie: Overture” plays when the protagonist and his gang commit a violent crime. The dissonance between “sexual confusion, violence, and crime” and “a bright and cheerful orchestral overture” suggests the characters’ contempt for violence and crime, conveying the message that it is merely pleasurable and thus absurd (Um &amp; Kim, 2020). In addition to the dissonance between the violent scenes and the mood of the music, cultural symbols are represented through the music and used in evil scenes, which is offensive to viewers who understand the cultural context. Symphony No. 9 in D minor, Op. 125 by Ludwig van Beethoven is considered by many critics and musicologists to be one of the greatest accomplishments in the history of music, often being used in positive scenes, but is used in this movie in sad and horrific scenes, such as those depicting violent crime and government abuse. Besides, Edward Elgar’s Pomp and Circumstance March, often considered the second national anthem of the United Kingdom, is used in serious, formal, and grand scenes. In A Clockwork Orange, it plays during the Home Secretary’s visit to the prison and the protagonist’s preparation for his road to evil therapy. Using sublime cultural symbols in this way leads to an ironic effect. For the second type of counterpoint, synthesizer versions of classical music made groundbreaking appearances in the film. When A Clockwork Orange was filmed, the synthesizer was a recently invented instrument, and using its sound to recreate classic works was subversive to audiences at the time. The synthesizer distorts classical music, expressing violence and chaos. It alters the melody and sound of the original piece, removing the very elements that define classical music, which is similar to Alex’s attempt to remake society by eliminating two of the three aspects that define society (Haberler, 2016). This technological timbre subverts classical music, just as technology alienates humanity.<br><br>Through its use of counterpoint, A Clockwork Orange subverts the use of classical music in film, presenting a cult classic. Since then, countless movies have associated violent crime with classical music, including Silence of the Lambs, Leon, and Hannibal.</p>
+
     </div>
 </div>
-
-<style>
-/* 相册浏览样式，可继承主题变量 */
-.album-viewer {
-    text-align: center;
-}
-.photo-container {
-    margin-bottom: 20px;
-    position: relative;          /* 为占位符提供参照 */
-    min-height: 450px;           /* 防止容器坍塌，可自行调整 */
-}
-
-.photo-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;  /* 透明背景 */
-    color: #666;                     /* 文字颜色 */
-    font-size: 1rem;
-    text-align: center;
-    pointer-events: none;            /* 让点击穿透到按钮（如果需要） */
-    z-index: 1;                      /* 确保在图片下方，但图片加载后会覆盖 */
-}
-
-.album-photo {
-    position: relative;              /* 保证图片在占位符上方 */
-    z-index: 2;
-    max-width: 100%;
-    max-height: 70vh;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.photo-caption {
-    margin-top: 10px;
-    font-style: italic;
-    color: #666;
-}
-.nav-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-.nav-controls .button {
-    min-width: 100px;
-}
-#photo-counter {
-    font-size: 1.1rem;
-}
-</style>
-
-<script>
-// 照片数据
-const photos = [];
-let currentIndex = 0;
-
-// 获取关键DOM元素（这些元素是静态存在的）
-const imgEl = document.getElementById('album-photo');
-const placeholderEl = document.getElementById('photo-placeholder');
-const captionEl = document.getElementById('photo-caption');
-const counterEl = document.getElementById('photo-counter');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-
-// 更新图片显示
-function updatePhoto() {
-    if (!photos.length) {
-        captionEl.innerText = '';
-        counterEl.innerText = '0/0';
-        prevBtn.disabled = true;
-        nextBtn.disabled = true;
-        if (placeholderEl) placeholderEl.style.display = 'flex';
-        imgEl.style.display = 'none';
-        return;
-    }
-
-    const photo = photos[currentIndex];
-    
-    // 显示占位符，隐藏图片
-    if (placeholderEl) {
-        placeholderEl.style.display = 'flex';
-        placeholderEl.innerText = '(*¯v¯*)';
-    }
-    imgEl.style.display = 'none';
-    
-    // 生成带时间戳的URL（强制刷新）
-    const separator = photo.url.includes('?') ? '&' : '?';
-    const uniqueUrl = photo.url + separator + '_t=' + Date.now();
-    
-    // 图片加载成功
-    imgEl.onload = () => {
-        console.log('图片加载成功:', uniqueUrl);
-        if (placeholderEl) placeholderEl.style.display = 'none';
-        imgEl.style.display = 'block';
-        captionEl.innerText = photo.caption || '';
-    };
-    
-    // 图片加载失败
-    imgEl.onerror = () => {
-        console.error('图片加载失败:', uniqueUrl);
-        if (placeholderEl) {
-            placeholderEl.style.display = 'flex';
-            placeholderEl.innerText = '加载失败，点刷新试试呢...';
-        }
-        imgEl.style.display = 'none';
-        captionEl.innerText = '图片加载失败';
-    };
-    
-    // 开始加载图片
-    imgEl.src = uniqueUrl;
-    imgEl.alt = photo.caption || '';
-    
-    // 更新计数器和按钮状态
-    counterEl.innerText = `${currentIndex+1} / ${photos.length}`;
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === photos.length - 1;
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    if (photos.length) updatePhoto();
-
-    prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updatePhoto();
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentIndex < photos.length - 1) {
-            currentIndex++;
-            updatePhoto();
-        }
-    });
-
-    // show 按钮：重新加载当前图片
-    const showBtn = document.getElementById('show-btn');
-    if (showBtn) {
-        showBtn.addEventListener('click', () => {
-            console.log('show 按钮点击，当前索引:', currentIndex);
-            updatePhoto();
-        });
-    } else {
-        console.error('未找到 show-btn 元素');
-    }
-});
-</script>
                 </main>
                 <div class="sidebar-mask" id="sidebar-mask"></div>
             </div>
