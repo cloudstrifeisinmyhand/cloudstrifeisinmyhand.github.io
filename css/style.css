@@ -260,7 +260,7 @@ nav {
 }
 
 .post-list {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .post-item {
@@ -1069,7 +1069,7 @@ footer {
 .video-item img {
   width: 100%;
   height: auto;
-  aspect-ratio: 2/1; /* 强制 16:9 比例 */
+  aspect-ratio: 3/1; /* 强制 16:9 比例 */
   object-fit: cover; /* 裁剪多余部分，填充容器 */
 }
 
@@ -1082,8 +1082,8 @@ footer {
 
 .video-row {
   display: flex;
-  gap: 20px; /* 两个 item 之间的间距 */
-  margin-top: 20px; /* 视频行与上方内容的间距 */
+  gap: 10px; /* 两个 item 之间的间距 */
+  margin-top: 5px; /* 视频行与上方内容的间距 */
 }
 
 .video-item {
