@@ -1055,10 +1055,23 @@ footer {
   display: block; /* 去除图片下方多余间隙 */
 }
 
+.video-item2 img {
+  width: 100%; /* 图片宽度占满父容器 */
+  height: auto; /* 高度自动，保持原始比例 */
+  display: block; /* 去除图片下方多余间隙 */
+}
+
 .video-item img {
   width: 100%;
   height: auto;
   aspect-ratio: 2/1; /* 强制 16:9 比例 */
+  object-fit: cover; /* 裁剪多余部分，填充容器 */
+}
+
+.video-item2 img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 10/1; /* 强制 16:9 比例 */
   object-fit: cover; /* 裁剪多余部分，填充容器 */
 }
 
