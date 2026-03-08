@@ -196,6 +196,23 @@ document.addEventListener('DOMContentLoaded', function() {
     //     color: var(--white-main);
     // }
 })();
-});
 
+// ========== 新增：点击页面任意位置触发播放 ==========
+    const handleFirstInteraction = () => {
+        if (!isPlaying) {
+            playSong();
+            // 播放成功后移除监听器，避免后续点击重复触发逻辑
+            document.removeEventListener('click', handleFirstInteraction);
+            document.removeEventListener('touchstart', handleFirstInteraction);
+            document.removeEventListener('keydown', handleFirstInteraction);
+        }
+    };
+
+    // 监听点击、触摸（移动端）和按键
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+    document.addEventListener('keydown', handleFirstInteraction);
+
+
+});
 
