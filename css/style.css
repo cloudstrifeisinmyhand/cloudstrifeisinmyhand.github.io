@@ -440,25 +440,17 @@ nav {
 }
 
 .avatar-bg {
-  background: var(--aero-grad);
-  backdrop-filter: blur(3px);
-  margin-top: -30px;
+  margin-top: -45px;
   margin-left: -10px;
-  box-sizing: border-box;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--white-main), 0 0 0 1.5px var(--black-main), 3px 3px 10px rgba(from var(--black-main) r g b/0.6);
 }
 
 .profile-img {
-  width: 110px;
+  width: 130px;
   box-sizing: border-box;
   position: relative;
   top: 5px;
   left: 5px;
   border-radius: 50%;
-  border: 1px solid var(--white-main);
 }
 
 .profile-link {
@@ -466,9 +458,9 @@ nav {
   display: inline-flex;
   height: 40px;
   width: 40px;
-  padding: 8px;
-  margin: 6px;
-  border-radius: 20px;
+  padding: 2px;
+  margin: 8px;
+  border-radius: 15px;
 }
 
 .profile-icon {
@@ -486,13 +478,12 @@ nav {
 }
 
 .profile {
-  padding-top: 10px;
+  padding-top: 20px;
   padding-left: 100px;
   height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  font-size: larger;
 }
 
 .about {
@@ -502,10 +493,24 @@ nav {
 
 .profile-widget {
   position: relative;
-  margin-top: -90px;
+  margin-top: -105px;
   text-shadow: 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main), 0 0 5px var(--white-main);
   font-size: smaller;
   text-align: center;
+}
+
+.profile-link {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.profile-link::after {
+  background: transparent !important;
+}
+
+.profile-icon {
+  background: transparent !important;
 }
 
 .music-widget {
