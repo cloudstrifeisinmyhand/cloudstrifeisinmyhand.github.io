@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    if (window.__musicPlayerInited__) return;
-    window.__musicPlayerInited__ = true;
-    
+    // if (window.__musicPlayerInited__) return;
+    // window.__musicPlayerInited__ = true;
     // 检查配置是否存在
     if (typeof musicConfig === 'undefined' || !musicConfig.playlist || musicConfig.playlist.length === 0) {
         return;
